@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/product_overview_screen.dart';
+
+import 'screens/product_detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key}); 
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -13,29 +16,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'My Shop',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
+          secondary: Colors.deepOrange,
+        ),
+        fontFamily: 'Lato',
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'My shop'),
+      home: ProductOverviewScreen(),
+      routes: {
+        ProductDetailScreen.routeName: (ctx) => const  ProductDetailScreen(),},
     );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-
-        title: Text(title),
-      ),
-      body: const Center(child: Text('Let\'s build a shop app')),); 
   }
 }
