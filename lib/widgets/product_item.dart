@@ -12,7 +12,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    return ClipRRect(// ClipRRect is a widget that clips its child using a rounded rectangle.
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         header: Text('$price',
