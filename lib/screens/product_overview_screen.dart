@@ -14,7 +14,7 @@ class ProductOverviewScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.7),
           title: const Text('My Shop'),
         ),
-        body: ProductGrid());
+        body: const ProductGrid());
   }
 }
 

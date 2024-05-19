@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create:(ctx)=>ProductProvider(),
+      create:(ctx)=>ProductProvider(),// this syntax of provider is recommended for instantiating a new class like Productprovider
       child: MaterialApp(
         title: 'My Shop',
         theme: ThemeData(
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
           useMaterial3: true,
         ),
-        home: ProductOverviewScreen(),
+        home: const ProductOverviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen(),
         },
