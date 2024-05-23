@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class cartItem {
+class CartItem {
   final String id;
   final String title;
   final int quantity;
   final double price;
 
-  cartItem({
+  CartItem({
     required this.id,
     required this.title,
     required this.quantity,
@@ -15,9 +15,9 @@ class cartItem {
 }
 
 class Cart with ChangeNotifier {
-  Map<String, cartItem> _items = {};
+ final Map<String, CartItem> _items = {};
 
-  Map<String, cartItem> get items {
+  Map<String, CartItem> get items {
     return {..._items};
   }
 }
