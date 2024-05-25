@@ -5,10 +5,12 @@ import 'screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   
 
   // This widget is the root of your application.
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
             secondary: Colors.deepOrange,
           ),
           fontFamily: 'Lato',
-          useMaterial3: true,
+          useMaterial3: false,
         ),
         home:  const ProductOverviewScreen(),
         routes: {
