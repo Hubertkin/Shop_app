@@ -13,18 +13,20 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Your Cart'),
       ),
-      body: const Column(
+      body:  Column(
         children: [
-          Card(),
+         const  Card(),
           Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: Row(
               children: [
-                Text('Total'),
-                SizedBox(
+                const Text('Total'),
+                const  SizedBox(
                   width: 10,
                 ),
-                Chip(label: Text('\$$cart'),)
+                Chip(
+                  label: Text('\$${cart.totalAmount}'),
+                )
               ],
             ),
           )
