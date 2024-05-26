@@ -21,8 +21,7 @@ class ProductGrid extends StatelessWidget {
           mainAxisSpacing: 10,
           crossAxisSpacing: 10),
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-        value: products[
-            i], //instantiating all products objects and making them avaible in productitem widget
+        value: products[i], //instantiating all products objects and making them avaible in productitem widget
 //.value is recommended when using already existing objects
 //and it also binds the widgets with it data to prevent flutter from recycling, causing bugs for more grid objects created
 //it also clears data that is not in use from memory

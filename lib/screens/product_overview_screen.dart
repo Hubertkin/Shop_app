@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/screens/cart_screen.dart';
 
 import '../widgets/product_grid.dart';
+import '../widgets/user_defined_badge.dart';
+import '../providers/cart.dart';
 
 enum FilterOptions { favorites, all }
 
@@ -25,14 +29,14 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             PopupMenuButton(
               icon: const Icon(Icons.more_vert),
               onSelected: (FilterOptions selectedValue) {
-               setState(() {
+                setState(() {
                   if (selectedValue == FilterOptions.favorites) {
-                  _showOnlyFavorites = true;
-                } else {
-                  _showOnlyFavorites = false;
-                }
-                debugPrint(selectedValue.toString());
-               });
+                    _showOnlyFavorites = true;
+                  } else {
+                    _showOnlyFavorites = false;
+                  }
+                  debugPrint(selectedValue.toString());
+                });
               },
               itemBuilder: (_) => const [
                 PopupMenuItem(
@@ -44,9 +48,26 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                   child: Text('Show All'),
                 )
               ],
-            )
+            ),
+            Consumer<Cart>(
+              builder: (_, cart, ch) => UserDefinedBadge(
+                value: cart.itemCount.toString(),
+                color: Theme.of(context).colorScheme.secondary,
+                child: ch!,
+              ),
+              child: IconButton(
+                onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.shopping_cart),
+              ),
+            ),
           ],
         ),
-        body:  ProductGrid(_showOnlyFavorites));
+        body: ProductGrid(_showOnlyFavorites));
   }
 }
