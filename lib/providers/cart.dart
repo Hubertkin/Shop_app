@@ -21,12 +21,12 @@ class Cart with ChangeNotifier {
     return {..._items};
   }
 
-  double get itemCount {
+  int get itemCount {
     var total = 0.0;
     _items.forEach((key, cartItem) {
       total += cartItem.quantity;
     });
-    return total;
+    return total.toInt();
   }
 
   double get totalAmount {
