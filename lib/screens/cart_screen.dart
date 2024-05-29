@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/cart.dart';
 
 class CartScreen extends StatelessWidget {
@@ -16,7 +15,8 @@ class CartScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Card(child: Padding(
+          Card(
+              child: Padding(
             padding: const EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,16 +25,35 @@ class CartScreen extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Chip(
-                  label: Text('\$${cart.totalAmount}', style: TextStyle(color: Theme.of(context).primaryTextTheme.titleSmall?.color),),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primary.withOpacity(0.6),
-                ),
-                TextButton(onPressed: (){}, child:  Text('ORDER NOW', style: TextStyle(color: Theme.of(context).colorScheme.primary),))
+                Column(
+                  children: [
+                    Chip(
+                      label: Text(
+                        '\$${cart.totalAmount}',
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .titleSmall
+                                ?.color),
+                      ),
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.6),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'ORDER NOW',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           )),
-          
         ],
       ),
     );
