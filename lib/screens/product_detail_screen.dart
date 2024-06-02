@@ -19,12 +19,39 @@ class ProductDetailScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.7),
         title: Text(loadedProduct.title),
       ),
-      body:  SizedBox(
-        height: 300,
-        width: double.infinity,
-        child: Image.network(
-          loadedProduct.imageUrl,
-          fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                loadedProduct.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              '\$${loadedProduct.price}',
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 20,
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10,
+              ),
+              child: Text(
+                loadedProduct.description,
+                softWrap: true,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
         ),
       ),
     );
