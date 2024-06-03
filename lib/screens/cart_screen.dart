@@ -34,7 +34,7 @@ class CartScreen extends StatelessWidget {
                   children: [
                     Chip(
                       label: Text(
-                        '\$${cart.totalAmount}',
+                        '\$${cart.totalAmount.toStringAsFixed(2)}',
                         style: TextStyle(
                             color: Theme.of(context)
                                 .primaryTextTheme
@@ -48,12 +48,23 @@ class CartScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Provider.of<Orders>(
-                          context,
-                          listen: false,
-                        ).addOrder(
-                            cart.items.values.toList(), cart.totalAmount);
-                        cart.clearCart();
+                        if (cart.totalAmount > 0) {
+                          Provider.of<Orders>(
+                            context,
+                            listen: false,
+                          ).addOrder(
+                              cart.items.values.toList(), cart.totalAmount);
+                          cart.clearCart();
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).showSnackBar( 
+                            const SnackBar(
+                              backgroundColor: Colors.red,
+                              content:  Text('Add items to cart to order.'),
+                              duration:  Duration(seconds: 2),
+                            ),
+                          );
+                        }
                       },
                       child: Text(
                         'ORDER NOW',
