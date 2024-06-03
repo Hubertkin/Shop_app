@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/providers/cart.dart';
 import 'package:shop_app/screens/cart_screen.dart';
+import 'package:shop_app/screens/order_screen.dart';
 import 'package:shop_app/screens/product_overview_screen.dart';
 import '../providers/product_provider.dart';
+import 'providers/order.dart';
 import 'screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +25,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Orders(),
+        ),
       ], // this syntax of provider is recommended for instantiating a new class like Productprovider
       child: MaterialApp(
         title: 'My Shop',
@@ -35,10 +40,13 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
           //useMaterial3: true,
         ),
-        home: const ProductOverviewScreen(),
+        //home: const ProductOverviewScreen(),
+        //initialRoute: '/',
         routes: {
+          '/': (ctx)=> const ProductOverviewScreen(),
           ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen(),
-          CartScreen.routeName: (ctx)=>const CartScreen(),
+          CartScreen.routeName: (ctx) => const CartScreen(),
+          OrderScreen.routeName: (ctx)=> const OrderScreen(),
         },
       ),
     );
