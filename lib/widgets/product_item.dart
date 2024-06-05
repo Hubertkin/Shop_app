@@ -54,6 +54,7 @@ class ProductItem extends StatelessWidget {
                ScaffoldMessenger.of(context).showSnackBar(
                  SnackBar(
                    content: const Text('Added item to cart!'),
+                   
                    duration: const Duration(seconds: 2),
                    action: SnackBarAction(
                      label: 'UNDO',
