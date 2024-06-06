@@ -16,7 +16,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart =Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     final product = Provider.of<Product>(context, listen: false);
     return ClipRRect(
       // ClipRRect is a widget that clips its child using a rounded rectangle.
@@ -34,9 +34,10 @@ class ProductItem extends StatelessWidget {
             product.title,
             textAlign: TextAlign.center,
           ),
-          leading: Consumer<Product>(//This widget is used on part of the whole widget in this file that needs a constant listening to rebuild 
-          //but the other parts doesn't need a rebuild
-          // the child argument is used on widgets that doesn't need a rebuild
+          leading: Consumer<Product>(
+            //This widget is used on part of the whole widget in this file that needs a constant listening to rebuild
+            //but the other parts doesn't need a rebuild
+            // the child argument is used on widgets that doesn't need a rebuild
             builder: (ctx, product, child) => IconButton(
                 icon: Icon(product.isFavorite
                     ? Icons.favorite
@@ -50,20 +51,20 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             icon: const Icon(Icons.shopping_cart),
             onPressed: () {
-               cart.addItem(product.id, product.price, product.title);
-               ScaffoldMessenger.of(context).showSnackBar(
-                 SnackBar(
-                   content: const Text('Added item to cart!'),
-                   
-                   duration: const Duration(seconds: 2),
-                   action: SnackBarAction(
-                     label: 'UNDO',
-                     onPressed: () {
-                       cart.removeSingleItem(product.id);
-                     },
-                   ),
-                 ),
-               );
+              cart.addItem(product.id, product.price, product.title);
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Added item to cart!'),
+                  duration: const Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: 'UNDO',
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
+                  ),
+                ),
+              );
             },
             color: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
           ),
