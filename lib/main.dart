@@ -8,6 +8,7 @@ import './providers/product_provider.dart';
 import 'providers/order.dart';
 import 'screens/product_detail_screen.dart';
 import 'package:provider/provider.dart';
+import 'screens/edit_product_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         ),
       ], // this syntax of provider is recommended for instantiating a new class like Productprovider
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'My Shop',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
           CartScreen.routeName: (ctx) => const CartScreen(),
           OrderScreen.routeName: (ctx)=> const OrderScreen(),
           UserProductScreen.routeName: (ctx)=> const UserProductScreen(),
+          EditProductScreen.routeName: (ctx)=> const EditProductScreen(),
         },
       ),
     );
