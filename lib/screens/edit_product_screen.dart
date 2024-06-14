@@ -23,7 +23,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ),
             textInputAction: TextInputAction.next,
           ),
-          TextFormField(
+          TextFormField( 
             decoration: const InputDecoration(
               labelText: 'Price',
             ),
