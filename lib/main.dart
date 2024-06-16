@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ], // this syntax of provider is recommended for instantiating a new class like Productprovider
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'My Shop',
+        title: 'Shopping cart',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.deepPurple,
