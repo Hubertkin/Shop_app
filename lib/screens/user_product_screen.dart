@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/widgets/user_product_item.dart';
 import '../providers/product_provider.dart';
-import '../widgets/app_drawer.dart';
 
 class UserProductScreen extends StatelessWidget {
   static const routeName = "/user-products";
@@ -23,7 +22,7 @@ class UserProductScreen extends StatelessWidget {
         ],
         
       ),
-      drawer: const AppDrawer(),
+      drawer: const Drawer(),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: ListView.builder(
