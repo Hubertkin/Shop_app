@@ -63,10 +63,9 @@ class ProductProvider with ChangeNotifier {
     return _items.firstWhere((pro) => pro.id == id);
   }
 
-  void addProduct(Product product) {
-    const url =
-        'https://shopapp-92be0-default-rtdb.firebaseio.com/rroducts.json';
-        http.post(url as Uri, body: json.encode({
+  Future<void> addProduct(Product product) {
+    const url = 'https://shopapp-92be0-default-rtdb.firebaseio.com/products.json';
+    return http.post(Uri.parse(url), body: json.encode({
           'title': product.title,
           'description': product.description,
           'imageUrl': product.imageUrl,
@@ -84,16 +83,16 @@ class ProductProvider with ChangeNotifier {
           notifyListeners();
         });
 
-  //   final newProduct = Product(
-  //     id: DateTime.now().toString(),
-  //     title: product.title,
-  //     description: product.description,
-  //     price: product.price,
-  //     imageUrl: product.imageUrl,
-  //   );
-  //   _items.add(newProduct);
-  //   notifyListeners();
-  // }
+    // final newProduct = Product(
+    //   id: DateTime.now().toString(),
+    //   title: product.title,
+    //   description: product.description,
+    //   price: product.price,
+    //   imageUrl: product.imageUrl,
+    // );
+    // _items.add(newProduct);
+    // notifyListeners();
+   }
 
   void updateProduct(String id, Product newProduct) {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
