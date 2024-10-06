@@ -27,8 +27,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     _isLoading = true;
     });
     Future.delayed(Duration.zero).then((_) {  //this is used to run the code after the build method has run to avoid errors from using context when it is not available
-      Provider.of<ProductProvider>(context).fetchAndSetProducts().then((_)  =>setState(() {
-      
+      Provider.of<ProductProvider>(context, listen: false,).fetchAndSetProducts().then((_)  =>setState(() {
     _isLoading = false;
     }));
     });
