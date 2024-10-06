@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/screens/cart_screen.dart';
 import 'package:shop_app/widgets/app_drawer.dart';
 
+import '../providers/product_provider.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/user_defined_badge.dart';
 import '../providers/cart.dart';
@@ -18,6 +19,21 @@ class ProductOverviewScreen extends StatefulWidget {
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   var _showOnlyFavorites = false;
+  var _isLoading = false;
+  @override
+  void initState() {
+    setState(() {
+      
+    _isLoading = true;
+    });
+    Future.delayed(Duration.zero).then((_) {  //this is used to run the code after the build method has run to avoid errors from using context when it is not available
+      Provider.of<ProductProvider>(context).fetchAndSetProducts().then((_)  =>setState(() {
+      
+    _isLoading = false;
+    }));
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +74,8 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
               ),
               child: IconButton(
                 onPressed: () {
-                Navigator.of(context).pushNamed(
-                   CartScreen.routeName,
+                  Navigator.of(context).pushNamed(
+                    CartScreen.routeName,
                   );
                 },
                 icon: const Icon(Icons.shopping_cart),
@@ -68,6 +84,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           ],
         ),
         drawer: const AppDrawer(),
-        body: ProductGrid(_showOnlyFavorites));
+        body: _isLoading ? const Center(child: CircularProgressIndicator(),) : ProductGrid(_showOnlyFavorites));
   }
 }

@@ -49,7 +49,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageURLFocusNode.dispose();
   }
 
-  @override
+
   @override
   void didChangeDependencies() {
     if (isInit) {
@@ -101,7 +101,19 @@ class _EditProductScreenState extends State<EditProductScreen> {
       } else {
         Provider.of<ProductProvider>(context, listen: false)
             .addProduct(_editedProduct)
-            .then((value) {
+            .catchError((error) {
+          return showDialog<void>(
+              context: context,
+              builder: (ctx) {
+                return AlertDialog(
+                  title: const Text("An error Ocurred!"),
+                  content: const Text("Something went wrong."),
+                  actions: [TextButton(onPressed: (){
+                    Navigator.of(ctx).pop();
+                  },child: const Text("Okay"),)],
+                );
+              },);
+        }).then((value) {
           setState(() {
             _isLoading = false;
           });
