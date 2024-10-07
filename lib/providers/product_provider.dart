@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/HttpException.dart';
 import 'product.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ProductProvider with ChangeNotifier {
-   List<Product> _items = [
+  List<Product> _items = [
     // Product(
     //   id: 'p1',
     //   title: 'Red Shirt',
@@ -64,7 +65,8 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.parse('https://shopapp-92be0-default-rtdb.firebaseio.com/products.json');
+    final url = Uri.parse(
+        'https://shopapp-92be0-default-rtdb.firebaseio.com/products.json');
     try {
       final response = await http.get(url);
       if (response.statusCode != 200) {
@@ -131,14 +133,16 @@ class ProductProvider with ChangeNotifier {
     // notifyListeners();
   }
 
- Future <void> updateProduct(String id, Product newProduct)  async {
-  final  url = Uri.parse('https://shopapp-92be0-default-rtdb.firebaseio.com/products/$id.json');
-  await http.patch(url, body: json.encode({
-      'title': newProduct.title,
-      'description': newProduct.description,
-      'imageUrl': newProduct.imageUrl,
-      'price': newProduct.price,
-  }));
+  Future<void> updateProduct(String id, Product newProduct) async {
+    final url = Uri.parse(
+        'https://shopapp-92be0-default-rtdb.firebaseio.com/products/$id.json');
+    await http.patch(url,
+        body: json.encode({
+          'title': newProduct.title,
+          'description': newProduct.description,
+          'imageUrl': newProduct.imageUrl,
+          'price': newProduct.price,
+        }));
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       _items[prodIndex] = newProduct;
@@ -149,7 +153,23 @@ class ProductProvider with ChangeNotifier {
   }
 
   void deleteProduct(String id) {
-    _items.removeWhere((prod) => prod.id == id);
+    final url = Uri.parse(
+        'https://shopapp-92be0-default-rtdb.firebaseio.com/products/$id.json');
+    final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+    final existingProduct = _items[existingProductIndex];
+    _items.removeAt(existingProductIndex);
+    http.delete(url).then((response) {
+      if (response.statusCode >= 400) {
+        _items.insert(existingProductIndex, existingProduct);
+        notifyListeners();
+        throw HttpException('Failed to delete product.');
+      }
+      existingProduct.dispose();
+      notifyListeners();
+    }).catchError((_) {
+      _items.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+    });
     notifyListeners();
   }
 }
